@@ -18,9 +18,17 @@ app.configure 'development', ->
 app.configure 'production', ->
 	app.use express.errorHandler({dumpExceptions:ture})
 
+app.get '/', (req, res)->
+	res.render 'home', {pageTitle:config.title}
+	
 app.get '/ourpics', (req, res)->
-	console.log config.title
 	res.render 'ourpics', {pageTitle:config.title}
+	
+app.get '/rsvp', (req, res)->
+	res.render 'rsvp', {pageTitle:config.title}
+	
+app.get '/venue', (req, res)->
+	res.render 'venue', {pageTitle:config.title}
 
 port = process.env.PORT || 5000
 app.listen port

@@ -1,19 +1,22 @@
 !!! 5
 html(lang="en")
 	head
-		title= pageTitle
 		meta(charset="utf-8")
-		script(type='stylesheet', href='/css/bootstrap.min.css')
-		script(type='stylesheet', href='/css/bootstrap-responsive.min.css')
-		script(type='text/javascript', href='/js/jquery-1.9.1.min.js')
-		script(type='text/javascript', href='/js/bootstrap.min.js')	
+		title= pageTitle
+		link(rel='stylesheet', href='/css/bootstrap.min.css')
+		link(rel='stylesheet', href='/css/bootstrap-responsive.min.css')
+		//if lt IE 9
+			script(src='/js/html5shiv.js')
+		script(type='text/javascript',src='/js/jquery-1.9.1.min.js')
+		script(type='text/javascript',src='/js/bootstrap.min.js')
 	body
 		.container
 			include includes/nav
 			.jumbotron
 				block content
 			.footer
-				countdown = Math.abs(new Date('2013/09/27') - new Date())
-				See you in #{countdown} days!!!!
+				oneDay = 1000*60*60*24
+				countdown = Math.round((new Date('2013/09/27') - new Date())/oneDay)
+				| See you in #{countdown} days!!!!
 				
 		include includes/contact.jade
