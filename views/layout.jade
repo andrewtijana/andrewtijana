@@ -1,0 +1,19 @@
+!!! 5
+html(lang="en")
+	head
+		title= pageTitle
+		meta(charset="utf-8")
+		script(type='stylesheet', href='/css/bootstrap.min.css')
+		script(type='stylesheet', href='/css/bootstrap-responsive.min.css')
+		script(type='text/javascript', href='/js/jquery-1.9.1.min.js')
+		script(type='text/javascript', href='/js/bootstrap.min.js')	
+	body
+		.container
+			include includes/nav
+			.jumbotron
+				block content
+			.footer
+				countdown = Math.abs(new Date('2013/09/27') - new Date())
+				See you in #{countdown} days!!!!
+				
+		include includes/contact.jade
