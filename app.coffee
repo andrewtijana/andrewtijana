@@ -19,7 +19,16 @@ app.configure 'production', ->
 	app.use express.errorHandler({dumpExceptions:ture})
 
 app.get '/', (req, res)->
+	res.redirect '/home'
+	
+app.get '/home', (req, res)->
 	res.render 'home', {pageTitle:config.title}
+
+app.get '/details', (req, res)->
+	res.render 'details', {pageTitle:config.title}
+
+app.get '/venue', (req, res)->
+	res.render 'venue', {pageTitle:config.title}
 	
 app.get '/ourpics', (req, res)->
 	res.render 'ourpics', {pageTitle:config.title}
