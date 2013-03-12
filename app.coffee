@@ -38,6 +38,12 @@ app.get '/rsvp', (req, res)->
 	
 app.get '/venue', (req, res)->
 	res.render 'venue', {pageTitle:config.title}
+	
+app.get '/registry', (req, res)->
+	res.render 'registry', {pageTitle:config.title}
+	
+app.get '/kwsites', (req, res)->
+	res.render 'kwsites', {pageTitle:config.title}
 
 port = process.env.PORT || 5000
 app.listen port
