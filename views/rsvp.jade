@@ -1,17 +1,21 @@
 extends layout
 
 block content
-	h2 Please let us know if you'll be able to attend.
+	h2 Are you attending?
 	form
-		p.lead Last Name
-		input
-		p.lead Email
-		input
-		p.lead Number of guests in your party
-		input
-		
-		--foreach guest
-		--Last Name
-		--First Name
-		--Meal Preference * Meal1, Meal2, Veggie
-		--Dietary Restriction
+		.row-fluid
+			.span4
+				.control-group
+					label.control-label(for="email") Contact email
+					.controls
+						input#email(type="email",name="email")
+			.span4
+				label.radio
+					input#yes(type="radio",name="attending",value="yes")
+					| Definitely!
+				label.radio
+					input#no(type="radio",name="attending",value="no")
+					| No :(
+			#submitGuests.span4
+				button.btn.btn-success(type="submit",disabled) Submit
+		#attendeeDetails
