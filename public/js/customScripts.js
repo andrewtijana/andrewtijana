@@ -1,3 +1,8 @@
+//TODO: 
+//1. add error checking
+//2. if they choose 'definitely' indicate they need to enter guest info
+//3. add db connections
+//4. make db match current setup
 $(document).ready(function(){
 	$('.carousel').carousel('cycle');
 	
