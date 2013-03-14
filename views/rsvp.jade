@@ -1,21 +1,23 @@
 extends layout
 
 block content
-	h2 Are you attending?
-	form
-		.row-fluid
-			.span4
-				.control-group
-					label.control-label(for="email") Contact email
-					.controls
-						input#email(type="email",name="email")
-			.span4
-				label.radio
-					input#yes(type="radio",name="attending",value="yes")
-					| Definitely!
-				label.radio
-					input#no(type="radio",name="attending",value="no")
-					| No :(
-			#submitGuests.span4
-				button.btn.btn-success(type="submit",disabled) Submit
-		#attendeeDetails
+	#rsvpContent
+		h2 Are you attending?
+		#alertError
+		form#rsvp
+			.row-fluid
+				.span4
+					.control-group
+						label.control-label(for="email") Contact email
+						.controls
+							input#email(type="email",name="email")
+				.span4
+					label.radio
+						input#yes(type="radio",name="attending",value="yes")
+						| Definitely!
+					label.radio
+						input#no(type="radio",name="attending",value="no")
+						| No :(
+				#submitGuests.span4
+					button#submitRSVP.btn.btn-success(type="submit") Submit
+			#attendeeDetails

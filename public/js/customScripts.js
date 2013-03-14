@@ -12,9 +12,13 @@ $(document).ready(function(){
 	$('input#yes').click(function(){
 		MainApp.addGuest();
 	});
-	
 	$('input#no').click(function(){
 		$('#attendeeDetails').empty();
+	});
+		
+	$('#rsvp').submit(function(){
+		MainApp.validateRSVP();
+		return false;
 	});
 	
 });
@@ -35,7 +39,7 @@ var MainApp={
 		$('div#attendeeDetails').append(MainApp.guestString);
 	},
 	"createGuestString":function(more){
-		MainApp.guestString = "<div id=\"guest" + MainApp.numGuests + "\" class=\"row-fluid\">";
+		MainApp.guestString = "<div id=\"guest" + MainApp.numGuests + "\" class=\"row-fluid\" \"guest\">";
 		
 		MainApp.guestString += "<div class=\"span2\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"lName" + MainApp.numGuests;
@@ -78,21 +82,49 @@ var MainApp={
 		MainApp.guestString += "</div>";
 	},
 	"validateInputs":function(){
+		var err = false;
 		if(!$('#email').val()) {
+			err = true;
 		}
-		if(!$('#yes').val() || !$('#no').val()) {
+		if(!$('input[name="attending"]').val()) {
+			err = true;
 		}
-		$('input[class="lName"]').each(function(lname){
-			if(!lname.val()) {
-			}
-		});
-		$('input[class="fName"]').each(function(fname){
-			if(!fname.val()) {
-			}
-		});
-		$('select[class="meal"]').each(function(meal){
-			if(!meal.val()) {
-			}
-		});
+		if($('input[class="lName"]').length > 0) {
+			$('input[class="lName"]').each(function(lname){
+				if(!lname.val()) {
+					err = true;
+				}
+			});
+		}
+		if($('input[class="fName"]').length > 0) {
+			$('input[class="fName"]').each(function(fname){
+				if(!fname.val()) {
+					err = true;
+				}
+			});
+		}
+		if($('select[class="meal"]').length > 0) {
+			$('select[class="meal"]').each(function(meal){
+				if(!meal.val()) {
+					err = true;
+				}
+			});
+		}
+
+		return err;
+	},
+	"alertError":function(msg){
+		$('#alertError').append('<div class="alert alert-error">' + msg + '</div>');
+	},
+	"validateRSVP":function(){
+		if (MainApp.validateInputs() === false){
+			alert('inputs are valid');
+			$.post('/commitRSVP',rsvpValues).done(function(data){
+				$('#rsvpContent').empty();
+				$('#rsvpContent').append('<h2> Thank you for responding!! Feel free to investigate this site.</h2>');
+			});
+		} else {
+			MainApp.alertError("Please fill in all the fields before submitting");
+		}
 	}
 };

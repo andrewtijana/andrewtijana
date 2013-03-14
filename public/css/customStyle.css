@@ -17,3 +17,8 @@ img.venue, img.details {
 img.venue {
 	margin-top: 20px;
 }
+.guest {
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+}
