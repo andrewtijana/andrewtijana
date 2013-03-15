@@ -4,20 +4,25 @@ block content
 	#rsvpContent
 		h2 Are you attending?
 		#alertError
-		form#rsvp
+		form#rsvp(action="")
 			.row-fluid
-				.span4
+				.span3
+					.control-group
+						label.control-label(for="lname") Group name
+						.controls
+							input#lname(type="text",name="lname",data-required="true")
+				.span3
 					.control-group
 						label.control-label(for="email") Contact email
 						.controls
-							input#email(type="email",name="email")
-				.span4
+							input#email(type="email",name="email",data-required="true")
+				.span3
 					label.radio
-						input#yes(type="radio",name="attending",value="yes")
+						input#yes(type="radio",name="attending",value="yes",data-required="true")
 						| Definitely!
 					label.radio
 						input#no(type="radio",name="attending",value="no")
 						| No :(
-				#submitGuests.span4
-					button#submitRSVP.btn.btn-success(type="submit") Submit
+				#submitGuests.span3
+					input#submitRSVP.btn.btn-success(type="submit", value="Submit")
 			#attendeeDetails

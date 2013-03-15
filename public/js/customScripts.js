@@ -15,10 +15,24 @@ $(document).ready(function(){
 	$('input#no').click(function(){
 		$('#attendeeDetails').empty();
 	});
-		
-	$('#rsvp').submit(function(){
-		MainApp.validateRSVP();
-		return false;
+	
+	$.validateSetup({
+		sendForm: false,
+		onSubmit: false
+	});
+	
+	$(document).on("submit","form#rsvp", function(event) {
+		$("form#rsvp").validate({
+			valid: function() {
+				$('#alertError').empty();
+				MainApp.submitRSVP();
+			},
+			invalid: function() {
+				alert('invalid');
+				MainApp.alertError("Please fill in all the fields before submitting")
+			}
+		});
+		event.preventDefault();
 	});
 	
 });
@@ -39,24 +53,25 @@ var MainApp={
 		$('div#attendeeDetails').append(MainApp.guestString);
 	},
 	"createGuestString":function(more){
-		MainApp.guestString = "<div id=\"guest" + MainApp.numGuests + "\" class=\"row-fluid\" \"guest\">";
+		MainApp.guestString = "<div id=\"guest" + MainApp.numGuests + "\" class=\"row-fluid guest\">";
 		
 		MainApp.guestString += "<div class=\"span2\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"lName" + MainApp.numGuests;
 		MainApp.guestString += "\"> Last name</label><div class=\"controls\"><input id=\"lName" + MainApp.numGuests;
-		MainApp.guestString += "\" type=\"text\" name=\"lName" + MainApp.numGuests + "\" class=\"input-auto\" lName>";
-		MainApp.guestString += "</div></div></div>";
+		MainApp.guestString += "\" type=\"text\" name=\"lName" + MainApp.numGuests + "\" class=\"input-auto lName\"";
+		MainApp.guestString += " data-required=\"true\"></div></div></div>";
 		
 		MainApp.guestString += "<div class=\"span2\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"fName" + MainApp.numGuests;
 		MainApp.guestString += "\"> First name</label><div class=\"controls\"><input id=\"fName" + MainApp.numGuests;
-		MainApp.guestString += "\" type=\"text\" name=\"fName" + MainApp.numGuests + "\" class=\"input-auto\" fName>";
-		MainApp.guestString += "</div></div></div>";
+		MainApp.guestString += "\" type=\"text\" name=\"fName" + MainApp.numGuests + "\" class=\"input-auto fName\"";
+		MainApp.guestString += " data-required=\"true\"></div></div></div>";
 		
 		MainApp.guestString += "<div class=\"span3\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"meal" + MainApp.numGuests;
 		MainApp.guestString += "\"> Meal choice</label><div class=\"controls\"><select class=\"meal\" ";
-		MainApp.guestString += "id=\"meal" + MainApp.numGuests + "\"><option value=\"" + MainApp.meal1 + "\">";
+		MainApp.guestString += "id=\"meal" + MainApp.numGuests + "\" data-required=\"true\">";
+		MainApp.guestString += "<option value=\"" + MainApp.meal1 + "\">";
 		MainApp.guestString += MainApp.meal1 + "</option><option value=\"" + MainApp.meal2 + "\">" + MainApp.meal2;
 		MainApp.guestString += "</option></select></div></div></div>";
 
@@ -81,50 +96,21 @@ var MainApp={
 							
 		MainApp.guestString += "</div>";
 	},
-	"validateInputs":function(){
-		var err = false;
-		if(!$('#email').val()) {
-			err = true;
-		}
-		if(!$('input[name="attending"]').val()) {
-			err = true;
-		}
-		if($('input[class="lName"]').length > 0) {
-			$('input[class="lName"]').each(function(lname){
-				if(!lname.val()) {
-					err = true;
-				}
-			});
-		}
-		if($('input[class="fName"]').length > 0) {
-			$('input[class="fName"]').each(function(fname){
-				if(!fname.val()) {
-					err = true;
-				}
-			});
-		}
-		if($('select[class="meal"]').length > 0) {
-			$('select[class="meal"]').each(function(meal){
-				if(!meal.val()) {
-					err = true;
-				}
-			});
-		}
-
-		return err;
-	},
 	"alertError":function(msg){
-		$('#alertError').append('<div class="alert alert-error">' + msg + '</div>');
-	},
-	"validateRSVP":function(){
-		if (MainApp.validateInputs() === false){
-			alert('inputs are valid');
-			$.post('/commitRSVP',rsvpValues).done(function(data){
-				$('#rsvpContent').empty();
-				$('#rsvpContent').append('<h2> Thank you for responding!! Feel free to investigate this site.</h2>');
-			});
-		} else {
-			MainApp.alertError("Please fill in all the fields before submitting");
+		if ($('#alertError').children().length === 0) {
+			$('#alertError').append('<div class="alert alert-error">' + msg + '</div>');
 		}
+	},
+	"submitRSVP":function(){
+		var groupInfo = [$('input[name="email"]').val(),$('input[name="lname"]').val(),
+			$('input[name="attending"]:checked').val()];
+		if($('.guest').length > 0) {
+			$('.guest').each(function(guest) {
+				var guest = [$('input[name="lName' + guest + '"]').val(),$('input[name="fName' + guest + '"]').val(),
+					$('#meal' + guest).val()];
+				groupInfo.push(guest);
+			});
+		}
+		alert(groupInfo);
 	}
 };
