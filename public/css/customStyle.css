@@ -1,5 +1,5 @@
-#engagementPics,img#homeImg  {
-	max-width:75%;
+#engagementPics,#homeImg  {
+	max-width:80%;
 	width:auto;
 	height:auto;
 	margin:0 auto;
@@ -7,32 +7,45 @@
 input.input-auto {
 	width:auto;
 }
-img.venue, img.details {
+.imgBorder {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 	border-style: solid;
 	border-width: 3px;
+	border-color: black;
 }
-img.venue {
-	margin-top: 20px;
+#detailsImg {
+	max-height:100%;
 }
 .guest {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-	padding: 10px;
+	padding: 6px 0px 0px 6px;
 	border-style: solid;
-	border-width: 1px;
-	margin: 5px;
+	border-width: 2px;
+	margin: 6px;
+	border-color: #00BFFF;
 }
-
 .error {
 	border-color:#b94a48;
 	color:#b94a48;
 }
-
 .middle {
 	margin: 0 auto;
 	text-align: center;
 }
+h2 {
+	color: #9932CC;
+}
+h3.title {
+	color: #49E20E;
+}
+h3 {
+	color: #00BFFF;
+}
+
+//turquoise: 00BFFF
+//green: 49E20E
+//purple:9932CC
