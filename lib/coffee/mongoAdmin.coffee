@@ -2,39 +2,39 @@ config = require './config.json'
 mongo = require('../../node_modules/mongo/node_modules/mongodb').MongoClient
 dbURI = config.dbURI
 
-exports.connectDB = (dbConn) ->
+connectDB = (dbConn) ->
 	mongo.connect dbURI, (err,db) ->
 		if err?
 			console.log 'ERROR: unable to connect to the database'
-			dbConn null
-		console.log err
-		dbConn db
+			dbConn err, null
+		dbConn null, db
 	
 exports.addFam = (email,attending,numGuests, famID) ->
-	connectDB (db) ->
+	connectDB (errDB, db) ->
 		if db?
-			collection = db.collection('Family')
+			collection = db.collection 'Family'
 			family = {'email':email, 'attending':attending, 'numGuests':numGuests}
-			collection.insert family, {safe:true}, (err, result) ->
-				if err?
-					db.close()
-					console.log 'ERROR: unable to add family with email: ' + email
-					famID err
-				else
-					famID result._id
-		else
-			famID db
-			
-exports.addGuest = (familyID, lname, fname, meal,restriction, added) ->
-	connectDB (db) ->
-		if db?
-			guest = {'fname':fname,'lname':lname,'familyID':ObjectID.createFromHexString(familyID),'meal':meal,'restriction':restriction}
-			collection = db.collection('Guests')
-			collection.insert guest, {safe:true}, (err, result) ->
+			collection.insert family, {safe:true}, (errID, fam) ->
 				db.close()
-				if err?
+				if errID?
+					console.log 'ERROR: unable to add family with email: ' + email
+					famID errID, null
+				else
+					famID null, fam[0]._id
+		else
+			famID errDB, null
+			
+exports.addGuest = (familyID, lname, fname, meal,restriction, addedGuest) ->
+	connectDB (errDB, db) ->
+		if db?
+			guest = {'fname':fname,'lname':lname,'familyID':familyID,'meal':meal,'restriction':restriction}
+			collection = db.collection 'Guests'
+			collection.insert guest, {safe:true}, (errGuest, guest) ->
+				db.close()
+				if errGuest?
 					console.log 'ERROR: unable to add the guest with fname: ' + fname + ' and lname: ' + lname
-					added err
-				added result._id	
-			else
-				added db
+					addedGuest errGuest, null
+				else
+					addedGuest null, guest[0]._id
+		else
+			addedGuest errDB

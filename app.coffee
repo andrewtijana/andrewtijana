@@ -49,24 +49,24 @@ app.get '/kwsites', (req, res)->
 app.post '/commitGuest', (req, res)->
 	guests = req.body.guests
 	if guests?
-		mongoAdmin.addFam guests[0], guests[1], guests[2], (famID)->
+		mongoAdmin.addFam guests[0], guests[1], guests[2], (err, famID)->
 			console.log 'famID' + famID
-			if famID? and famID.indexOf('ERROR:') isnt -1
+			if famID? and err is null
 				console.log 'could not add the family'
 				res.send 'Oops there was an error! Please try again.'
 			else
 				for guest in guests[3]
 					if guests[2] is 'no'
-						mongoAdmin.addGuest famID, guest[0], guest[1], (result)->
-							if result?
-								console.log 'could not add not attending guest; err: ' + result
+						mongoAdmin.addGuest famID, guest[0], guest[1], (errGuest, guest)->
+							if errGuest?
+								console.log 'could not add not attending guest; err: ' + errGuest
 								res.send 'Oops there was an error! Please try again.'
 							else
 								res.send 'Thank you for responding! Feel free to continue browsing our wedding websites :)'
 					else
-						mongoAdmin.addGuest famID, guest[0], guest[1], guest[2], guest[3], (result)->
-							if result?
-								console.log 'could not add attending guest; err: ' + result
+						mongoAdmin.addGuest famID, guest[0], guest[1], guest[2], guest[3], (errGuest, result)->
+							if errGuest?
+								console.log 'could not add attending guest; err: ' + errGuest
 								res.send 'Oops there was an error! Please try again.'
 							else
 								res.send 'Thank you for responding! Feel free to continue browsing our wedding websites :)'
