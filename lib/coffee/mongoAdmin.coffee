@@ -22,12 +22,13 @@ exports.addFam = (email,attending,numGuests, famID) ->
 				else
 					famID null, fam[0]._id
 		else
+			db.close
 			famID errDB, null
 			
 exports.addGuest = (familyID, lname, fname, meal,restriction, addedGuest) ->
 	connectDB (errDB, db) ->
 		if db?
-			guest = {'fname':fname,'lname':lname,'familyID':familyID,'meal':meal,'restriction':restriction}
+			guest = {'familyID':familyID,'lname':lname,'fname':fname,'meal':meal,'restriction':restriction}
 			collection = db.collection 'Guests'
 			collection.insert guest, {safe:true}, (errGuest, guest) ->
 				db.close()
@@ -37,4 +38,5 @@ exports.addGuest = (familyID, lname, fname, meal,restriction, addedGuest) ->
 				else
 					addedGuest null, guest[0]._id
 		else
-			addedGuest errDB
+			db.close()
+			addedGuest errDB, null

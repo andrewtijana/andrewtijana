@@ -50,29 +50,28 @@ app.post '/commitGuest', (req, res)->
 	guests = req.body.guests
 	if guests?
 		mongoAdmin.addFam guests[0], guests[1], guests[2], (err, famID)->
-			console.log 'famID' + famID
-			if famID? and err is null
-				console.log 'could not add the family'
-				res.send 'Oops there was an error! Please try again.'
+			if err?
+				console.log "could not add the family"
+				res.send "Oops there was an error! Please try again."
 			else
-				for guest in guests[3]
-					if guests[2] is 'no'
-						mongoAdmin.addGuest famID, guest[0], guest[1], (errGuest, guest)->
+				if guests[1] is 'no'
+					mongoAdmin.addGuest famID, guests[3][0], guests[3][1], '', '', (errGuest, guest)->
+						if errGuest?
+							console.log "could not add guest that's not attending; err: " + errGuest
+							res.send "Oops there was an error! Please try again."
+						else
+							res.send "Success!"
+				else
+					for guest in guests[3]
+						mongoAdmin.addGuest famID, guest[0], guest[1], guest[2], guest[3], (errGuest, guest)->
 							if errGuest?
-								console.log 'could not add not attending guest; err: ' + errGuest
-								res.send 'Oops there was an error! Please try again.'
+								console.log "could not add attending guest; err: " + errGuest
+								res.send "Oops there was an error! Please try again."
 							else
-								res.send 'Thank you for responding! Feel free to continue browsing our wedding websites :)'
-					else
-						mongoAdmin.addGuest famID, guest[0], guest[1], guest[2], guest[3], (errGuest, result)->
-							if errGuest?
-								console.log 'could not add attending guest; err: ' + errGuest
-								res.send 'Oops there was an error! Please try again.'
-							else
-								res.send 'Thank you for responding! Feel free to continue browsing our wedding websites :)'
+								res.send "Success!"
 	else
-		console.log 'guests variable is empty'
-		res.send 'Oops there was an error! Please try again.'
+		console.log "guests variable is empty"
+		res.send "Oops there was an error! Please try again."
 
 port = process.env.PORT || 5000
 app.listen port

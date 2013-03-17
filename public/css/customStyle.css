@@ -31,3 +31,8 @@ img.venue {
 	border-color:#b94a48;
 	color:#b94a48;
 }
+
+.middle {
+	margin: 0 auto;
+	text-align: center;
+}

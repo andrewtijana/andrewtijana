@@ -144,7 +144,8 @@ var MainApp={
 	"submitRSVP":function(){
 		var groupInfo = [$('input[name="email"]').val(),$('input:radio[name="attending"]:checked').val(),
 			MainApp.numGuests];
-		if ($('input:radio[name="attending"]:checked').val() !== "no") {
+		var guestsInfo = [];
+		if ($('input:radio[name="attending"]:checked').val() === "no") {
 			var guestInfo = [$('input[name="lName"]').val(),$('input[name="fName"]').val()];
 			groupInfo.push(guestInfo);
 		} else {
@@ -153,14 +154,16 @@ var MainApp={
 				var guestInfo = [$('input[name="lName' + guestNum + '"]').val(),
 					$('input[name="fName' + guestNum + '"]').val(),$('#meal' + guestNum).val(), 
 					$('input[name="restriction' + guestNum + '"]').val()];
-					groupInfo.push(guestInfo);
+				guestsInfo.push(guestInfo);
 			});
+			groupInfo.push(guestsInfo);
 		}
 		
 		$.post("/commitGuest", {guests:groupInfo})
 		.done(function(data) {
 			$('#rsvpContent').empty();
-			$('#rsvpContent').append("<h2> " + data);
+			$('#rsvpContent').addClass('middle');
+			$('#rsvpContent').append("<div class=\"hero-unit\"><h2> " + data + "</h2><p class=\"lead\"> Thank you for responding! Feel free to continue browsing the site!</div>");
 		})
 		.fail(function() { 
 			$('#rsvpContent').empty();
