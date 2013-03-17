@@ -26,3 +26,8 @@ img.venue {
 	border-width: 1px;
 	margin: 5px;
 }
+
+.error {
+	border-color:#b94a48;
+	color:#b94a48;
+}

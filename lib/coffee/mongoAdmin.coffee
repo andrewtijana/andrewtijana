@@ -1,38 +1,40 @@
-config = require './config'
+config = require './config.json'
 mongo = require('../../node_modules/mongo/node_modules/mongodb').MongoClient
+dbURI = config.dbURI
 
-dbURI = config.mongoWeddingURI
-exports.connectDB = () ->
+exports.connectDB = (dbConn) ->
 	mongo.connect dbURI, (err,db) ->
 		if err?
 			console.log 'ERROR: unable to connect to the database'
-			return null
-
-			return db
-			
-exports.closeDB = (db) ->
-	db.close()
+			dbConn null
+		console.log err
+		dbConn db
 	
-exports.addFam = (lname,fname,email) ->
-	collection = db.collection('Family')
-	family = {'lname':lname,'fname':fname,'email':email}
-	collection.insert family, {w:1}, (err, result) ->
-		if err?
-			console.log 'ERROR: unable to connect to the database'
-			return null
+exports.addFam = (email,attending,numGuests, famID) ->
+	connectDB (db) ->
+		if db?
+			collection = db.collection('Family')
+			family = {'email':email, 'attending':attending, 'numGuests':numGuests}
+			collection.insert family, {safe:true}, (err, result) ->
+				if err?
+					db.close()
+					console.log 'ERROR: unable to add family with email: ' + email
+					famID err
+				else
+					famID result._id
+		else
+			famID db
 			
-exports.addGuest = (fname, familyID, meal) ->
-	guest = {'fname':fname,'familyID':familyID,'meal':meal}
-	collection = db.collection('Guests')
-	collection.insert guest, {w:1}, (err, result) ->
-		if err?
-			console.log 'ERROR: unable to connect to the database'
-			return null	
-			
-exports.getFamID = (lname,fname) ->
-	collection = db.collection('Family')
-	collection.findOne {lname:lname,fname:fname},{_id:1}, (err,item) ->
-		if err?
-			console.log 'ERROR: unable to connect to the database'
-			return null
-		return item
+exports.addGuest = (familyID, lname, fname, meal,restriction, added) ->
+	connectDB (db) ->
+		if db?
+			guest = {'fname':fname,'lname':lname,'familyID':ObjectID.createFromHexString(familyID),'meal':meal,'restriction':restriction}
+			collection = db.collection('Guests')
+			collection.insert guest, {safe:true}, (err, result) ->
+				db.close()
+				if err?
+					console.log 'ERROR: unable to add the guest with fname: ' + fname + ' and lname: ' + lname
+					added err
+				added result._id	
+			else
+				added db
