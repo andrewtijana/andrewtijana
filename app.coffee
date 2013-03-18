@@ -55,7 +55,7 @@ app.post '/commitGuest', (req, res)->
 				res.send "Oops there was an error! Please try again."
 			else
 				if guests[1] is 'no'
-					mongoAdmin.addGuest famID, guests[3][0], guests[3][1], '', '', (errGuest, guest)->
+					mongoAdmin.addGuest famID, guests[3][0], '0', '', '', (errGuest, guest)->
 						if errGuest?
 							console.log "could not add guest that's not attending; err: " + errGuest
 							res.send "Oops there was an error! Please try again."

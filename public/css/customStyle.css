@@ -28,6 +28,22 @@ input.input-auto {
 	margin: 6px;
 	border-color: #00BFFF;
 }
+.loadingIcon {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background: url('/pics/ajax-loader.gif') 50% 50% no-repeat;
+}
+body.loading {
+	overflow: hidden;
+}
+body.loading .loadingIcon {
+	display: block;
+}
 .error {
 	border-color:#b94a48;
 	color:#b94a48;

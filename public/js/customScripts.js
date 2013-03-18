@@ -159,13 +159,16 @@ var MainApp={
 			groupInfo.push(guestsInfo);
 		}
 		
+		$('body').addClass('loading');
 		$.post("/commitGuest", {guests:groupInfo})
 		.done(function(data) {
+			$('body').removeClass('loading');
 			$('#rsvpContent').empty();
 			$('#rsvpContent').addClass('middle');
 			$('#rsvpContent').append("<div class=\"hero-unit\"><h2> " + data + "</h2><p class=\"lead\"> Thank you for responding! Feel free to continue browsing the site!</div>");
 		})
 		.fail(function() { 
+			$('body').removeClass('loading');
 			$('#rsvpContent').empty();
 			$('#rsvpContent').append("<h2> Oops something went wrong! Please try again");
 		});
