@@ -13,14 +13,15 @@ exports.addFam = (email,attending,numGuests, famID) ->
 	connectDB (errDB, db) ->
 		if db?
 			collection = db.collection 'Family'
-			family = {'email':email, 'attending':attending, 'numGuests':numGuests}
-			collection.insert family, {safe:true}, (errID, fam) ->
+			searchEmail = {'email':email}
+			attendance = {'email':email,'attending':attending, 'numGuests':numGuests}
+			collection.update searchEmail, attendance, {safe:true,upsert:true}, (errID, fam) ->
 				db?.close()
 				if errID?
 					console.log 'ERROR: unable to add family with email: ' + email
 					famID errID, null
 				else
-					famID null, fam[0]._id
+					famID null, JSON.stringify(fam)
 		else
 			db?.close
 			famID errDB, null
@@ -28,15 +29,16 @@ exports.addFam = (email,attending,numGuests, famID) ->
 exports.addGuest = (familyID, lname, fname, meal,restriction, addedGuest) ->
 	connectDB (errDB, db) ->
 		if db?
-			guest = {'familyID':familyID,'lname':lname,'fname':fname,'meal':meal,'restriction':restriction}
+			guest = {'familyID':familyID,'lname':lname,'fname':fname}
+			options = {'familyID':familyID,'lname':lname,'fname':fname,'meal':meal,'restriction':restriction}
 			collection = db.collection 'Guests'
-			collection.insert guest, {safe:true}, (errGuest, guest) ->
+			collection.update guest, options, {safe:true,upsert:true}, (errGuest, numRecords) ->
 				db?.close()
 				if errGuest?
 					console.log 'ERROR: unable to add the guest with fname: ' + fname + ' and lname: ' + lname
 					addedGuest errGuest, null
 				else
-					addedGuest null, guest[0]._id
+					addedGuest null, JSON.stringify(numRecords)
 		else
 			db?.close()
 			addedGuest errDB, null
