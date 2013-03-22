@@ -50,22 +50,39 @@ var MainApp={
 	"numGuests":0,
 	"meal1":"Chicken",
 	"meal2":"Vegetarian",
+	"meal3":"Kids < 5yrs",
+	"meal4":"Kids 5-12yrs",
 	"guestString":"",
 	"noGuestString":"",
+	"addButtonString":"",
 	"addGuest":function(){
 		MainApp.numGuests++;
 		MainApp.guestString = "";
 		if (MainApp.numGuests < 6) {
+			MainApp.removePrevAddButton();
 			MainApp.createGuestString(true);
 		} else {
 			MainApp.createGuestString(false);
 		}
 		$('div#attendeeDetails').append(MainApp.guestString);
 	},
+	"deleteGuest":function(id){
+		$('#addGuest' + (MainApp.numGuests - 1)).remove();
+		MainApp.numGuests--;
+		$('#' + id).remove();
+		MainApp.addGuestButton();
+		$('#changeGuest' + MainApp.numGuests).append(MainApp.addButtonString);
+	},
 	"addNoGuest":function(){
 		MainApp.numGuests++;
 		MainApp.createNoGuestString();
 		$('div#attendeeDetails').append(MainApp.noGuestString);
+	},
+	"addGuestButton":function() {
+		MainApp.addButtonString = "<div id=\"addGuest" + MainApp.numGuests + "\" class=\"span1\">";
+		MainApp.addButtonString += "<a href=\"javascript:MainApp.addGuest();void(0);";
+		MainApp.addButtonString += "\"><img id=\"addGuestImg" + MainApp.numGuests + "\" src=\"/pics/add.png";
+		MainApp.addButtonString += "\" alt=\"Add guest\"></a></div>";
 	},
 	"createGuestString":function(more){
 		MainApp.guestString = "<div id=\"guest" + MainApp.numGuests + "\" class=\"row-fluid guest\">";
@@ -88,7 +105,9 @@ var MainApp={
 		MainApp.guestString += "id=\"meal" + MainApp.numGuests + "\"" + "name=\"meal" + MainApp.numGuests + "\">";
 		MainApp.guestString += "<option value=\"" + MainApp.meal1 + "\">";
 		MainApp.guestString += MainApp.meal1 + "</option><option value=\"" + MainApp.meal2 + "\">" + MainApp.meal2;
-		MainApp.guestString += "</option></select></div></div></div>";
+		MainApp.guestString += "<option value=\"" + MainApp.meal3 + "\">" + MainApp.meal3 + "</option>";
+		MainApp.guestString += "<option value=\"" + MainApp.meal4 + "\">" + MainApp.meal4 + "</option>";
+		MainApp.guestString += "</select></div></div></div>";
 
 		MainApp.guestString += "<div class=\"span3\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"restriction" + MainApp.numGuests;
@@ -96,18 +115,20 @@ var MainApp={
 		MainApp.guestString += "<input id=\"restriction" + MainApp.numGuests;
 		MainApp.guestString += "\" type=\"text\" name=\"restriction" + MainApp.numGuests + "\"></div></div></div>";
 		
+		MainApp.guestString += "<div id=\"changeGuest" + MainApp.numGuests + "\">";
 		if (more === true) {
-			MainApp.guestString += "<div id=\"changeGuest" + MainApp.numGuests + "\" class=\"changeGuest span1\">";
-			MainApp.guestString += "<a href=\"javascript:MainApp.addGuest();void(0);";
-			MainApp.guestString += "\"><img class=\"addGuest\" id=\"addGuest" + MainApp.numGuests + "\" src=\"/pics/add.png";
-			MainApp.guestString += "\" alt=\"Add guest\"></a></div>";
+			MainApp.addGuestButton();
+			MainApp.guestString += MainApp.addButtonString;
+			MainApp.addButtonString = ""
 		}
-		
-		if(MainApp.numGuests > 1) {
-			var prevGuest = MainApp.numGuests - 1;
-			var remID = 'div#changeGuest' + prevGuest + '.changeGuest.span1';
-			$(remID).empty();
+		if (MainApp.numGuests > 1) {
+			MainApp.guestString += "<div id=\"deleteGuest" + MainApp.numGuests + "\" class=\"span1\">";
+			MainApp.guestString += "<a href=\"javascript:MainApp.deleteGuest('guest";
+			MainApp.guestString += MainApp.numGuests + "');void(0);";
+			MainApp.guestString += "\"><img id=\"deleteGuestImg" + MainApp.numGuests + "\" src=\"/pics/delete.png";
+			MainApp.guestString += "\" alt=\"Delete guest\"></a></div>";
 		}
+		MainApp.guestString += "</div>";
 							
 		MainApp.guestString += "</div>";
 	},
@@ -140,6 +161,9 @@ var MainApp={
 		if (id !== '') {
 			$('#' + id).removeClass('error');
 		}
+	},
+	"removePrevAddButton":function() {
+		$('#addGuest' + (MainApp.numGuests - 1)).remove();
 	},
 	"submitRSVP":function(){
 		var groupInfo = [$('input[name="email"]').val(),$('input:radio[name="attending"]:checked').val(),

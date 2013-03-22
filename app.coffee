@@ -81,6 +81,10 @@ app.post '/commitGuest', (req, res)->
 	else
 		console.log "guests variable is empty"
 		res.send "Oops there was an error! Please try again."
+		
+app.get '/report', (req, res)->
+	mongoAdmin.getGuests (err, report, overview)->
+		res.render 'report', {'report':report, 'overview':overview}
 
 port = process.env.PORT || 5000
 app.listen port
