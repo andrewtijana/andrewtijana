@@ -46,7 +46,7 @@ getFamilies = (families) ->
 	connectDB (errDB, db) ->
 		if db?
 			collection = db.collection 'Family'
-			collection.find({},{'sort':['attending','desc']}).toArray (err, familiesArray) ->
+			collection.find({}).toArray (err, familiesArray) ->
 				db?.close()
 				families null, familiesArray
 		else
@@ -57,31 +57,17 @@ getGuests = (email, guests) ->
 		if db?
 			collection = db.collection 'Guests'
 			collection.find({'familyID':email}).toArray (err, guestsArray) ->
+				numGuests = 0
+				meal1 = 0
+				meal2 = 0
+				meal3 = 0
+				meal4 = 0
 				db?.close()
-				guests null, guestsArray
-		else
-			guests "There was a problem connecting to the database", null
-			
-exports.getReport = (report) -> 
-	reportDetails = []
-	numGuests = 0
-	meal1 = 0
-	meal2 = 0
-	meal3 = 0
-	meal4 = 0
-	
-	getFamilies (err, families)->
-		if err?
-			report err, null, null
-			return
-		for family in families
-			guestsResult = getGuests family.email, (errG,guests)->
-				if errG?
-					report errG, null, null
-					return
-				numGuests += guests.length
+				if err?
+					guests "Could not turn guests to array.", null, null
+				numGuests += guestsArray.length
 				guestsArr = []
-				for guest in guests
+				for guest in guestsArray
 					if guest.meal is 'Chicken'
 						meal1++
 					else if guest.meal is 'Vegetarian'
@@ -96,13 +82,42 @@ exports.getReport = (report) ->
 						meal:guest.meal
 						restriction:guest.restriction
 					guestsArr.push guestArr
-				return [family.email, guestsArr]
-			console.log JSON.stringify(guestsResult)
-			reportDetails.push guestsResult
-			if(reportDetails.length is families.length)
-				report null, reportDetails, ['numGuests':numGuests,'meal1':meal1,'meal2':meal2,'meal3':meal3,'meal4':meal4]
-				return
+				details = 
+					'email':email
+					'numGuests':numGuests
+					'meal1':meal1
+					'meal2':meal2
+					'meal3':meal3
+					'meal4':meal4
+				guests null, guestsArr, details
+		else
+			guests "There was a problem connecting to the database", null
+			
+exports.getReport = (report) -> 
+	reportDetails = []
+	detailsArr = 
+		'numGuests':0
+		'meal1':0
+		'meal2':0
+		'meal3':0
+		'meal4':0
+	getFamilies (err, families)->
+		if err?
+			report err, null, null
+			return
+		for family in families
+			guestsResult = getGuests family.email, (errG,guests, details)->
+				detailsArr.numGuests += details.numGuests
+				detailsArr.meal1 += details.meal1
+				detailsArr.meal2 += details.meal2
+				detailsArr.meal3 += details.meal3
+				detailsArr.meal4 += details.meal4
+				reportDetails.push [details.email,guests]
+				if(reportDetails.length is families.length)
+					report null, reportDetails,detailsArr
+					return
 		
 if not module.parent
 	exports.getReport (err, report, details)->
 		console.log JSON.stringify(report)
+		console.log JSON.stringify(details)

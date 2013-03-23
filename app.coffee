@@ -49,32 +49,23 @@ app.get '/kwsites', (req, res)->
 app.post '/commitGuest', (req, res)->
 	guests = req.body.guests
 	if guests?
-		mongoAdmin.addFam guests[0], guests[1], guests[2], (err, numRecords)->
+		mongoAdmin.addFam guests[0], guests[1], guests[2], (err, numFamily)->
 			if err?
 				console.log "could not add the family"
 				res.send "Oops there was an error! Please try again."
-			else if numRecords isnt guests[2]
-				console.log "not all records were inserted <" + numRecords + ">; <" + guests[2] + ">"
-				res.send "Oops there was an error! Please try again."
 			else
 				if guests[1] is 'no'
-					mongoAdmin.addGuest guests[0], guests[3][0], guests[3][1], '', '', (errGuest, numRecords)->
+					mongoAdmin.addGuest guests[0], guests[3][0], guests[3][1], '', '', (errGuest, numRecord)->
 						if errGuest?
 							console.log "could not add guest that's not attending; err: " + errGuest
-							res.send "Oops there was an error! Please try again."
-						else if numRecords isnt "1"
-							console.log "could not add guest that's not attending"
 							res.send "Oops there was an error! Please try again."
 						else
 							res.send "Success!"
 				else
 					for guest in guests[3]
-						mongoAdmin.addGuest guests[0], guest[0], guest[1], guest[2], guest[3], (errGuest, numRecords)->
+						mongoAdmin.addGuest guests[0], guest[0], guest[1], guest[2], guest[3], (errGuest, numRecord)->
 							if errGuest?
 								console.log "could not add attending guest; err: " + errGuest
-								res.send "Oops there was an error! Please try again."
-							else if numRecords isnt "1"
-								console.log "could not add attending guest"
 								res.send "Oops there was an error! Please try again."
 							else
 								res.send "Success!"
@@ -83,7 +74,7 @@ app.post '/commitGuest', (req, res)->
 		res.send "Oops there was an error! Please try again."
 		
 app.get '/report', (req, res)->
-	mongoAdmin.getGuests (err, report, overview)->
+	mongoAdmin.getReport (err, report, overview)->
 		res.render 'report', {'report':report, 'overview':overview}
 
 port = process.env.PORT || 5000

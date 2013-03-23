@@ -61,7 +61,15 @@ h3.title {
 h3 {
 	color: #00BFFF;
 }
-
+.table th, .table td {
+	padding: 4px
+}
+table#details th {
+	color: #00BFFF;
+}
+a#contact {
+	color: #49E20E
+}
 //turquoise: 00BFFF
 //green: 49E20E
 //purple:9932CC

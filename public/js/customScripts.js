@@ -50,16 +50,16 @@ var MainApp={
 	"numGuests":0,
 	"meal1":"Chicken",
 	"meal2":"Vegetarian",
-	"meal3":"Kids < 5yrs",
-	"meal4":"Kids 5-12yrs",
+	"meal3":"Kids 5-12yrs",
+	"meal4":"Kids < 5yrs",
 	"guestString":"",
 	"noGuestString":"",
 	"addButtonString":"",
 	"addGuest":function(){
 		MainApp.numGuests++;
 		MainApp.guestString = "";
+		MainApp.removePrevAddButton();
 		if (MainApp.numGuests < 6) {
-			MainApp.removePrevAddButton();
 			MainApp.createGuestString(true);
 		} else {
 			MainApp.createGuestString(false);
@@ -79,7 +79,7 @@ var MainApp={
 		$('div#attendeeDetails').append(MainApp.noGuestString);
 	},
 	"addGuestButton":function() {
-		MainApp.addButtonString = "<div id=\"addGuest" + MainApp.numGuests + "\" class=\"span1\">";
+		MainApp.addButtonString = "<div id=\"addGuest" + MainApp.numGuests + "\" class=\"span1 middle\">";
 		MainApp.addButtonString += "<a href=\"javascript:MainApp.addGuest();void(0);";
 		MainApp.addButtonString += "\"><img id=\"addGuestImg" + MainApp.numGuests + "\" src=\"/pics/add.png";
 		MainApp.addButtonString += "\" alt=\"Add guest\"></a></div>";
@@ -122,7 +122,7 @@ var MainApp={
 			MainApp.addButtonString = ""
 		}
 		if (MainApp.numGuests > 1) {
-			MainApp.guestString += "<div id=\"deleteGuest" + MainApp.numGuests + "\" class=\"span1\">";
+			MainApp.guestString += "<div id=\"deleteGuest" + MainApp.numGuests + "\" class=\"span1 middle\">";
 			MainApp.guestString += "<a href=\"javascript:MainApp.deleteGuest('guest";
 			MainApp.guestString += MainApp.numGuests + "');void(0);";
 			MainApp.guestString += "\"><img id=\"deleteGuestImg" + MainApp.numGuests + "\" src=\"/pics/delete.png";
@@ -173,13 +173,12 @@ var MainApp={
 			var guestInfo = [$('input[name="lName"]').val(),$('input[name="fName"]').val()];
 			groupInfo.push(guestInfo);
 		} else {
-			$('.guest').each(function(guest) {
-				guestNum = guest + 1;
-				var guestInfo = [$('input[name="lName' + guestNum + '"]').val(),
-					$('input[name="fName' + guestNum + '"]').val(),$('#meal' + guestNum).val(), 
-					$('input[name="restriction' + guestNum + '"]').val()];
+			for(var i = 1; i <= MainApp.numGuests; i++) {
+				var guestInfo = [$('input[name="lName' + i + '"]').val(),
+					$('input[name="fName' + i + '"]').val(),$('#meal' + i).val(), 
+					$('input[name="restriction' + i + '"]').val()];
 				guestsInfo.push(guestInfo);
-			});
+			}
 			groupInfo.push(guestsInfo);
 		}
 		
