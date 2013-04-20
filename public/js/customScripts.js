@@ -48,8 +48,8 @@ $(function(){
 
 var MainApp={
 	"numGuests":0,
-	"meal1":"Chicken",
-	"meal2":"Vegetarian",
+	"meal1":"Caesar Salad",
+	"meal2":"Cheddar/Cauliflower Soup",
 	"meal3":"Kids 5-12yrs",
 	"meal4":"Kids < 5yrs",
 	"guestString":"",
