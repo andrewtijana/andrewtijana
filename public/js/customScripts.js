@@ -101,7 +101,7 @@ var MainApp={
 		
 		MainApp.guestString += "<div class=\"span3\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"meal" + MainApp.numGuests;
-		MainApp.guestString += "\"> Meal choice</label><div class=\"controls\"><select class=\"required\" ";
+		MainApp.guestString += "\"> Appetizer choice</label><div class=\"controls\"><select class=\"required\" ";
 		MainApp.guestString += "id=\"meal" + MainApp.numGuests + "\"" + "name=\"meal" + MainApp.numGuests + "\">";
 		MainApp.guestString += "<option value=\"" + MainApp.meal1 + "\">";
 		MainApp.guestString += MainApp.meal1 + "</option><option value=\"" + MainApp.meal2 + "\">" + MainApp.meal2;

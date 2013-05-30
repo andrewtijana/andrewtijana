@@ -73,6 +73,14 @@ a#contact {
 .turquoise {
 	color: #00BFFF;
 }
+.registry {
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	padding: 10px;
+	border-style: solid;
+	border-width: 2px;
+}
 //turquoise: 00BFFF
 //green: 49E20E
 //purple:9932CC

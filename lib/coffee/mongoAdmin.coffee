@@ -68,9 +68,9 @@ getGuests = (email, guests) ->
 				numGuests += guestsArray.length
 				guestsArr = []
 				for guest in guestsArray
-					if guest.meal is 'Chicken'
+					if guest.meal is 'Caesar Salad'
 						meal1++
-					else if guest.meal is 'Vegetarian'
+					else if guest.meal is 'Cheddar/Cauliflower Soup'
 						meal2++
 					else if guest.meal is 'Kids < 5yrs'
 						meal3++
