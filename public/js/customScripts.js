@@ -11,6 +11,7 @@ $(function(){
 	
 	$('input#yes').click(function(){
 		$('#attendeeDetails').empty();
+		$('#attendeeDetails').append("<div id=\"tip\" class=\"row-fluid\">Tip: To add details for additional guests, press the green plus icon</div>");
 		MainApp.addGuest();
 	});
 	$('input#no').click(function(){

@@ -73,9 +73,9 @@ getGuests = (email, guests) ->
 					else if guest.meal is 'Cheddar/Cauliflower Soup'
 						meal2++
 					else if guest.meal is 'Kids < 5yrs'
-						meal3++
-					else if guest.meal is 'Kids 5-12yrs'
 						meal4++
+					else if guest.meal is 'Kids 5-12yrs'
+						meal3++
 					guestArr = 
 						fname:guest.fname
 						lname:guest.lname
