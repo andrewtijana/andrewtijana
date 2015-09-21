@@ -21,7 +21,7 @@ app.configure 'production', ->
 
 app.get '/', (req, res)->
 	res.redirect '/home'
-	
+
 app.get '/home', (req, res)->
 	res.render 'home'
 
@@ -30,22 +30,28 @@ app.get '/details', (req, res)->
 
 app.get '/venue', (req, res)->
 	res.render 'venue'
-	
+
 app.get '/ourpics', (req, res)->
 	res.render 'ourpics'
-	
+
 app.get '/rsvp', (req, res)->
 	res.render 'rsvp'
-	
+
 app.get '/venue', (req, res)->
 	res.render 'venue'
-	
+
 app.get '/registry', (req, res)->
 	res.render 'registry'
-	
+
 app.get '/kwsites', (req, res)->
 	res.render 'kwsites'
-	
+
+app.get '/tijanajovicoverview', (req, res)->
+  res.render 'tijanajovicoverview'
+
+app.get '/tijanajovicextras', (req, res)->
+  res.render 'tijanajovicextras'
+
 app.post '/commitGuest', (req, res)->
 	guests = req.body.guests
 	if guests?
@@ -72,7 +78,7 @@ app.post '/commitGuest', (req, res)->
 	else
 		console.log "guests variable is empty"
 		res.send "Oops there was an error! Please try again."
-		
+
 app.get '/report', (req, res)->
 	mongoAdmin.getReport (err, report, overview)->
 		res.render 'report', {'report':report, 'overview':overview}
