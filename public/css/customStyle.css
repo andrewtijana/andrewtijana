@@ -91,7 +91,7 @@ a#contact {
   border-color: #669933;
 }
 .panel-green > .panel-heading {
-  color: #999999;
+  color: #fff;
   background-color: #669933;
   border-color: #669933;
 }
@@ -99,7 +99,7 @@ a#contact {
   border-color: #336699;
 }
 .panel-blue > .panel-heading {
-  color: #999999;
+  color: #fff;
   background-color: #336699;
   border-color: #336699;
 }
