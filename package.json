@@ -12,5 +12,8 @@
 	"engines": {
 		"node": "^4.1.x",
 		"npm": "^2.4.x"
-	}
+	},
+  "scripts": {
+    "start": "coffee app"
+  }
 }
