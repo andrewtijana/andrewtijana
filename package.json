@@ -14,6 +14,6 @@
 		"npm": "^2.4.x"
 	},
   "scripts": {
-    "start": "coffee app"
+    "start": "./node_modules/coffee-script/bin/coffee app"
   }
 }
