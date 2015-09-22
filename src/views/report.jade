@@ -1,0 +1,38 @@
+extends layout
+
+block content
+	h2 Overview of Guest RSVP
+	.col-md-2
+		table#overview.table.table-hover
+			tr
+				td Total Guests
+				td= overview.numGuests
+			tr
+				td Caesar Salad
+				td= overview.meal1
+			tr
+				td Cauliflower Soup
+				td= overview.meal2
+			tr
+				td Kids 5-12yrs
+				td= overview.meal3
+			tr
+				td Kids < 5yrs
+				td= overview.meal4
+
+	table#details.table.table-bordered
+		tr
+			th Family Email
+			th First Name
+			th Last Name
+			th Appetizer
+			th Restrictions
+		each family in report
+			tr
+				td(rowspan="#{family[1].length + 1}")= family[0]
+			each guest in family[1]
+				tr
+					td= guest.fname
+					td= guest.lname
+					td= guest.meal
+					td= guest.restriction
