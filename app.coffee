@@ -4,20 +4,20 @@ config = require './lib/coffee/config.json'
 
 app = express()
 
-app.configure ->
-	app.set 'views', __dirname + '/views'
-	app.set 'view engine', 'jade'
-	app.set 'title', config.title
-	app.use express.bodyParser()
-	app.use express.cookieParser()
-	app.use express.static(__dirname + '/public')
+app.set 'port', process.env.PORT || 3000
+app.set 'views', path.join(__dirname, 'views')
+app.set('view engine', 'jade');
+app.use express.bodyParser.json()
+app.use express.bodyParser.urlencoded({ extended: true })
+app.use express.static(path.join(__dirname, 'public'))
+app.set 'title', config.title
 
-app.configure 'development', ->
+
+if 'development' == app.get('env')
 	app.use express.errorHandler({dumpExceptions:true})
 	app.set 'view options', {pretty:true}
-
-app.configure 'production', ->
-	app.use express.errorHandler({dumpExceptions:ture})
+else
+	app.use express.errorHandler({dumpExceptions:true})
 
 app.get '/', (req, res)->
 	res.redirect '/home'
@@ -83,5 +83,4 @@ app.get '/report', (req, res)->
 	mongoAdmin.getReport (err, report, overview)->
 		res.render 'report', {'report':report, 'overview':overview}
 
-port = process.env.PORT || 5000
 app.listen port

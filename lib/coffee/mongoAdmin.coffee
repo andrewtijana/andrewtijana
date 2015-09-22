@@ -1,5 +1,5 @@
 config = require './config.json'
-mongo = require('../../node_modules/mongo/node_modules/mongodb').MongoClient
+mongo = require('../../node_modules/mongodb').MongoClient
 dbURI = config.dbURI
 
 connectDB = (dbConn) ->
@@ -8,7 +8,7 @@ connectDB = (dbConn) ->
 			console.log 'ERROR: unable to connect to the database'
 			dbConn err, null
 		dbConn null, db
-	
+
 exports.addFam = (email,attending,numGuests, famID) ->
 	connectDB (errDB, db) ->
 		if db?
@@ -25,7 +25,7 @@ exports.addFam = (email,attending,numGuests, famID) ->
 		else
 			db?.close
 			famID errDB, null
-			
+
 exports.addGuest = (familyID, lname, fname, meal,restriction, addedGuest) ->
 	connectDB (errDB, db) ->
 		if db?
@@ -51,7 +51,7 @@ getFamilies = (families) ->
 				families null, familiesArray
 		else
 			families "There was a problem connecting to the database", null
-				
+
 getGuests = (email, guests) ->
 	connectDB (errDB, db) ->
 		if db?
@@ -76,13 +76,13 @@ getGuests = (email, guests) ->
 						meal4++
 					else if guest.meal is 'Kids 5-12yrs'
 						meal3++
-					guestArr = 
+					guestArr =
 						fname:guest.fname
 						lname:guest.lname
 						meal:guest.meal
 						restriction:guest.restriction
 					guestsArr.push guestArr
-				details = 
+				details =
 					'email':email
 					'numGuests':numGuests
 					'meal1':meal1
@@ -92,10 +92,10 @@ getGuests = (email, guests) ->
 				guests null, guestsArr, details
 		else
 			guests "There was a problem connecting to the database", null
-			
-exports.getReport = (report) -> 
+
+exports.getReport = (report) ->
 	reportDetails = []
-	detailsArr = 
+	detailsArr =
 		'numGuests':0
 		'meal1':0
 		'meal2':0
@@ -116,7 +116,7 @@ exports.getReport = (report) ->
 				if(reportDetails.length is families.length)
 					report null, reportDetails,detailsArr
 					return
-		
+
 if not module.parent
 	exports.getReport (err, report, details)->
 		console.log JSON.stringify(report)
