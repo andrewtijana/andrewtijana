@@ -1,6 +1,10 @@
 {
 	"name":"andrewtijana",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewtijana/andrewtijana"
+  },
 	"dependencies": {
 		"express": "^4.x.x",
     "body-parser": "^1.5.2",
