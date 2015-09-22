@@ -1,6 +1,6 @@
-express = require 'express'
-errorHandler = require 'errorhandler'
-bodyParser = require 'body-parser'
+express = require './node_modules/express'
+errorHandler = require './node_modules/errorhandler'
+bodyParser = require './node_modules/body-parser'
 mongoAdmin = require './lib/coffee/mongoAdmin'
 config = require './lib/coffee/config.json'
 path = require 'path'
@@ -10,17 +10,17 @@ app = express()
 app.set 'port', process.env.PORT || 3000
 app.set 'views', path.join(__dirname, 'views')
 app.set('view engine', 'jade');
-app.use express.bodyParser.json()
-app.use express.bodyParser.urlencoded({ extended: true })
+app.use bodyParser.json()
+app.use bodyParser.urlencoded({ extended: true })
 app.use express.static(path.join(__dirname, 'public'))
 app.set 'title', config.title
 
 
 if 'development' == app.get('env')
-	app.use express.errorHandler({dumpExceptions:true})
+	app.use errorHandler({dumpExceptions:true})
 	app.set 'view options', {pretty:true}
 else
-	app.use express.errorHandler({dumpExceptions:true})
+	app.use errorHandler({dumpExceptions:true})
 
 app.get '/', (req, res)->
 	res.redirect '/home'
