@@ -3,6 +3,8 @@
   "version": "1.0.0",
 	"dependencies": {
 		"express": "^4.x.x",
+    "body-parser": "^1.5.2",
+    "errorhandler": "^1.1.1",
 		"coffee-script": "^1.4.x",
 		"mongo":"*",
 		"jade":"^1.x"

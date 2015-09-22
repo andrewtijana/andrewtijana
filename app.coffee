@@ -1,6 +1,9 @@
 express = require 'express'
+errorHandler = require 'errorhandler'
+bodyParser = require 'body-parser'
 mongoAdmin = require './lib/coffee/mongoAdmin'
 config = require './lib/coffee/config.json'
+path = require 'path'
 
 app = express()
 
