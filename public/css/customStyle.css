@@ -73,6 +73,12 @@ a#contact {
 .turquoise {
 	color: #00BFFF;
 }
+.purple {
+  color: #9932CC;
+}
+.panel, .grey {
+  color:#999999
+}
 .registry {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -80,6 +86,22 @@ a#contact {
 	padding: 10px;
 	border-style: solid;
 	border-width: 2px;
+}
+.panel-green {
+  border-color: #669933;
+}
+.panel-green > .panel-heading {
+  color: #999999;
+  background-color: #669933;
+  border-color: #669933;
+}
+.panel-blue {
+  border-color: #336699;
+}
+.panel-blue > .panel-heading {
+  color: #999999;
+  background-color: #336699;
+  border-color: #336699;
 }
 //turquoise: 00BFFF
 //green: 49E20E
