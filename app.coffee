@@ -86,4 +86,5 @@ app.get '/report', (req, res)->
 	mongoAdmin.getReport (err, report, overview)->
 		res.render 'report', {'report':report, 'overview':overview}
 
-app.listen port
+app.listen app.get('port'), ->
+  console.log 'Express server is listening on port '+ app.get('port')
