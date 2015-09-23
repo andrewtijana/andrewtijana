@@ -12,14 +12,14 @@ block content
             .label(for="email") Contact email
               input.form-control#email.required(type="email",name="email")
         .col-md-4
-          div.radio
+          .radio
             .label
-              input#yes.required(type="radio",name="attending",value="yes")
+              input#yes.required(type="radio",name="attending",value="yes"
               | Definitely!
-					div.radio
+          .radio
             .label
               input#no(type="radio",name="attending",value="no")
               | No :(
-				#submitGuests.col-md-4
+        #submitGuests.col-md-4
           input#submitRSVP.btn.btn-success(type="submit", value="Submit")
     #attendeeDetails
