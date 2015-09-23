@@ -1,5 +1,5 @@
 path = require 'path'
-nodeModules = path.join(process.execPath, 'node_modules')
+nodeModules = '../../node_modules'
 config = require './config.json'
 mongo = require path.join(nodeModules, 'mongodb').MongoClient
 dbURI = config.dbURI

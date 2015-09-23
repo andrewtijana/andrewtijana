@@ -1,5 +1,5 @@
 path = require 'path'
-nodeModules = path.join(process.execPath, 'node_modules')
+nodeModules = './node_modules'
 express = require path.join(nodeModules, 'express')
 errorHandler = require path.join(nodeModules, 'errorhandler')
 bodyParser = require path.join(nodeModules, 'body-parser')
