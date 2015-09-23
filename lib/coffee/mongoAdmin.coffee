@@ -1,7 +1,10 @@
 path = require 'path'
+
+console.log 'path' + path.join(path.dirname(require.main.filename), 'node_modules')
+
 nodeModules = path.join(path.dirname(require.main.filename), 'node_modules')
 config = require './config.json'
-mongo = require path.join(nodeModules, 'mongo').MongoClient
+mongo = require path.join(nodeModules, 'mongodb').MongoClient
 dbURI = config.dbURI
 
 connectDB = (dbConn) ->
