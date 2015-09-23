@@ -1,5 +1,6 @@
+path = require 'path'
 config = require './config.json'
-mongo = require($(npm bin)/mongodb).MongoClient
+mongo = require path.join(__dirname, 'mongodb').MongoClient
 dbURI = config.dbURI
 
 connectDB = (dbConn) ->
