@@ -1,9 +1,10 @@
 path = require 'path'
-express = require path.join(__dirname, 'node_modules/express')
-errorHandler = require path.join(__dirname, 'node_modules/errorhandler')
-bodyParser = require path.join(__dirname, 'node_modules/body-parser')
-mongoAdmin = require path.join(__dirname, 'lib/coffee/mongoAdmin')
-config = require path.join(__dirname, 'lib/coffee/config.json')
+nodeModules = path.join(process.execPath, 'node_modules')
+express = require path.join(nodeModules, 'express')
+errorHandler = require path.join(nodeModules, 'errorhandler')
+bodyParser = require path.join(nodeModules, 'body-parser')
+mongoAdmin = require path.join(process.execPath, 'lib/coffee/mongoAdmin')
+config = require path.join(process.execPath, 'lib/coffee/config.json')
 
 app = express()
 
