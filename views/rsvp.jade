@@ -1,18 +1,18 @@
 extends layout
 
 block content
-	#rsvpContent
-		h2 Are you attending?
-		h3 Make sure you register by July 27th!
-		#alertError
-		form#rsvp(name="rsvp", action="")
-			.row
-				.col-md-4
-					.form-group
-						.label(for="email") Contact email
-						input.form-control#email.required(type="email",name="email")
-				.col-md-4
-					div.radio
+  #rsvpContent
+    h2 Are you attending?
+    h3 Make sure you register by July 27th!
+    #alertError
+    form#rsvp(name="rsvp", action="")
+      .row
+        .col-md-4
+          .form-group
+            .label(for="email") Contact email
+              input.form-control#email.required(type="email",name="email")
+        .col-md-4
+          div.radio
             .label
               input#yes.required(type="radio",name="attending",value="yes")
               | Definitely!
