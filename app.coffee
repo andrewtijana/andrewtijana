@@ -49,12 +49,6 @@ app.get '/registry', (req, res)->
 app.get '/kwsites', (req, res)->
 	res.render 'kwsites'
 
-app.get '/tijanajovicoverview', (req, res)->
-  res.render 'tijanajovicoverview'
-
-app.get '/tijanajovicextras', (req, res)->
-  res.render 'tijanajovicextras'
-
 app.post '/commitGuest', (req, res)->
 	guests = req.body.guests
 	if guests?
