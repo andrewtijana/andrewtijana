@@ -1,5 +1,5 @@
 config = require './config.json'
-mongo = require('../../node_modules/mongodb/lib/').MongoClient
+mongo = require($(npm bin)/mongo).MongoClient
 dbURI = config.dbURI
 
 connectDB = (dbConn) ->

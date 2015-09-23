@@ -1,6 +1,6 @@
-express = require './node_modules/express'
-errorHandler = require './node_modules/errorhandler'
-bodyParser = require './node_modules/body-parser'
+express = require $(npm bin)/express
+errorHandler = require $(npm bin)/errorhandler
+bodyParser = require $(npm bin)/body-parser
 mongoAdmin = require './lib/coffee/mongoAdmin'
 config = require './lib/coffee/config.json'
 path = require 'path'
