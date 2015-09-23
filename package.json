@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": “git@heroku.com:cedar-14-app-tj.git"
+    "url": "git@heroku.com:cedar-14-app-tj.git"
   },
 	"dependencies": {
 		"express": "^4.x.x",
