@@ -1,5 +1,5 @@
 config = require './config.json'
-mongo = require($(npm bin)/mongo).MongoClient
+mongo = require($(npm bin)/mongodb).MongoClient
 dbURI = config.dbURI
 
 connectDB = (dbConn) ->
