@@ -3,8 +3,8 @@ nodeModules = path.join(path.dirname(require.main.filename), 'node_modules')
 express = require path.join(nodeModules, 'express')
 errorHandler = require path.join(nodeModules, 'errorhandler')
 bodyParser = require path.join(nodeModules, 'body-parser')
-mongoAdmin = require './lib/coffee/mongoAdmin')
-config = require './lib/coffee/config.json')
+mongoAdmin = require './lib/coffee/mongoAdmin'
+config = require './lib/coffee/config.json'
 
 app = express()
 
