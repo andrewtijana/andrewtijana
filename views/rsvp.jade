@@ -9,17 +9,22 @@ block content
 			.row
 				.col-md-4
 					.form-group
-						.label.label-default(for="email") Contact email
+						.label.col-md-1.control-label(for="email") Contact email
+						.col-md-3
 							input.form-control#email.required(type="email",name="email")
 				.col-md-4
-					.radio
-						.label.label-default
-							input#yes.required(type="radio",name="attending",value="yes")
-							| Definitely!
-					.radio
-						.label.label-default
-							input#no(type="radio",name="attending",value="no")
-							| No :(
+					.form-group
+						.col-md-offset-2.col-md-10
+							.radio
+								label
+									input#yes.required(type="radio",name="attending",value="yes")
+									| Definitely!
+					.form-group
+						.col-md-offset-2.col-md-10
+							.radio
+								label
+									input#no(type="radio",name="attending",value="no")
+									| No :(
 				#submitGuests.col-md-4
 					input#submitRSVP.btn.btn-success(type="submit", value="Submit")
 		#attendeeDetails
