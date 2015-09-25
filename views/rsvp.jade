@@ -6,19 +6,26 @@ block content
 		h3 Make sure you register by July 27th!
 		#alertError
 		form#rsvp(name="rsvp", action="")
-			.row-fluid
-				.span4
-					.control-group
-						label.control-label(for="email") Contact email
-						.controls
-							input#email.required(type="email",name="email")
-				.span4
-					label.radio
-						input#yes.required(type="radio",name="attending",value="yes")
-						| Definitely!
-					label.radio
-						input#no(type="radio",name="attending",value="no")
-						| No :(
-				#submitGuests.span4
-					input#submitRSVP.btn.btn-success(type="submit", value="Submit")
-			#attendeeDetails
+			.form-horizontal
+				.row
+					.col-md-4
+						.form-group
+							label.control-label.col-sm-4(for="email") Email
+							.col-sm-8
+								input.form-control#email.required(type="email",name="email")
+					.col-md-4
+						.form-group
+							.col-md-offset-2.col-md-10
+								.radio
+									label
+										input#yes.required(type="radio",name="attending",value="yes")
+										| Definitely!
+						.form-group
+							.col-md-offset-2.col-md-10
+								.radio
+									label
+										input#no(type="radio",name="attending",value="no")
+										| No :(
+					#submitGuests.col-md-4
+						input#submitRSVP.btn.btn-success(type="submit", value="Submit")
+		#attendeeDetails

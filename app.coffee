@@ -1,9 +1,10 @@
-express = require './node_modules/express'
-errorHandler = require './node_modules/errorhandler'
-bodyParser = require './node_modules/body-parser'
+path = require 'path'
+nodeModules = path.join(path.dirname(require.main.filename), 'node_modules')
+express = require path.join(nodeModules, 'express')
+errorHandler = require path.join(nodeModules, 'errorhandler')
+bodyParser = require path.join(nodeModules, 'body-parser')
 mongoAdmin = require './lib/coffee/mongoAdmin'
 config = require './lib/coffee/config.json'
-path = require 'path'
 
 app = express()
 
@@ -49,6 +50,12 @@ app.get '/registry', (req, res)->
 app.get '/kwsites', (req, res)->
 	res.render 'kwsites'
 
+app.get '/tijanajovicoverview', (req, res)->
+	res.render 'tijanajovicoverview'
+
+app.get '/tijanajovicextras', (req, res)->
+	res.render 'tijanajovicextras'
+
 app.post '/commitGuest', (req, res)->
 	guests = req.body.guests
 	if guests?
@@ -81,4 +88,4 @@ app.get '/report', (req, res)->
 		res.render 'report', {'report':report, 'overview':overview}
 
 app.listen app.get('port'), ->
-  console.log 'Express server is listening on port '+ app.get('port')
+	console.log 'Express server is listening on port '+ app.get('port')
