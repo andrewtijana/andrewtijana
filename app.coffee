@@ -51,10 +51,10 @@ app.get '/kwsites', (req, res)->
 	res.render 'kwsites'
 
 app.get '/tijanajovicoverview', (req, res)->
-  res.render 'tijanajovicoverview'
+	res.render 'tijanajovicoverview'
 
 app.get '/tijanajovicextras', (req, res)->
-  res.render 'tijanajovicextras'
+	res.render 'tijanajovicextras'
 
 app.post '/commitGuest', (req, res)->
 	guests = req.body.guests
@@ -88,4 +88,4 @@ app.get '/report', (req, res)->
 		res.render 'report', {'report':report, 'overview':overview}
 
 app.listen app.get('port'), ->
-  console.log 'Express server is listening on port '+ app.get('port')
+	console.log 'Express server is listening on port '+ app.get('port')
