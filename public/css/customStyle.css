@@ -109,6 +109,12 @@ a#contact {
 #extrasImg, #overviewImg {
   padding: 10px;
 }
+
+/* Customize container */
+.resume.container {
+  max-width: 730px;
+}
+
 //turquoise: 00BFFF
 //green: 49E20E
 //purple:9932CC
