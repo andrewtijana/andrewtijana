@@ -1,14 +1,14 @@
-//TODO: 
+//TODO:
 //1. add error checking
 //2. if they choose 'definitely' indicate they need to enter guest info
 //3. add db connections
 //4. make db match current setup
 $(function(){
-	$('.carousel').carousel('cycle');
-	
+	//$('.carousel').carousel('cycle');
+
 	var activeurl = window.location.pathname;
 	$('a[href="'+activeurl+'"]').parent('li').addClass('active');
-	
+
 	$('input#yes').click(function(){
 		$('#attendeeDetails').empty();
 		$('#attendeeDetails').append("<div id=\"tip\" class=\"row-fluid\">Tip: To add details for additional guests, press the green plus icon</div>");
@@ -18,7 +18,7 @@ $(function(){
 		$('#attendeeDetails').empty();
 		MainApp.addNoGuest();
 	});
-	
+
 	$('#rsvp').submit(function(){
 		var valid = true;
 		var errorMsg = "Please fill in all the fields before submitting";
@@ -38,13 +38,12 @@ $(function(){
 				}
 			}
 		});
-		
+
 		if (valid === true) {
 			MainApp.submitRSVP();
 		}
 		return false;
 	});
-	
 });
 
 var MainApp={
@@ -87,19 +86,19 @@ var MainApp={
 	},
 	"createGuestString":function(more){
 		MainApp.guestString = "<div id=\"guest" + MainApp.numGuests + "\" class=\"row-fluid guest\">";
-		
+
 		MainApp.guestString += "<div class=\"span2\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"lName" + MainApp.numGuests;
 		MainApp.guestString += "\"> Last name</label><div class=\"controls\"><input id=\"lName" + MainApp.numGuests;
 		MainApp.guestString += "\" type=\"text\" name=\"lName" + MainApp.numGuests + "\" class=\"input-auto";
 		MainApp.guestString += " required\"></div></div></div>";
-		
+
 		MainApp.guestString += "<div class=\"span2\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"fName" + MainApp.numGuests;
 		MainApp.guestString += "\"> First name</label><div class=\"controls\"><input id=\"fName" + MainApp.numGuests;
 		MainApp.guestString += "\" type=\"text\" name=\"fName" + MainApp.numGuests + "\" class=\"input-auto";
 		MainApp.guestString += " required\"></div></div></div>";
-		
+
 		MainApp.guestString += "<div class=\"span3\"><div class=\"control-group\"><label";
 		MainApp.guestString += " class=\"control-label\" for=\"meal" + MainApp.numGuests;
 		MainApp.guestString += "\"> Appetizer choice</label><div class=\"controls\"><select class=\"required\" ";
@@ -115,7 +114,7 @@ var MainApp={
 		MainApp.guestString += "\"> Dietary restriction</label><div class=\"controls\">";
 		MainApp.guestString += "<input id=\"restriction" + MainApp.numGuests;
 		MainApp.guestString += "\" type=\"text\" name=\"restriction" + MainApp.numGuests + "\"></div></div></div>";
-		
+
 		MainApp.guestString += "<div id=\"changeGuest" + MainApp.numGuests + "\">";
 		if (more === true) {
 			MainApp.addGuestButton();
@@ -130,18 +129,18 @@ var MainApp={
 			MainApp.guestString += "\" alt=\"Delete guest\"></a></div>";
 		}
 		MainApp.guestString += "</div>";
-							
+
 		MainApp.guestString += "</div>";
 	},
 	"createNoGuestString":function(){
 		MainApp.noGuestString = "<div id=\"guest\" class=\"row-fluid guest\">";
-		
+
 		MainApp.noGuestString += "<div class=\"span2\"><div class=\"control-group\"><label";
 		MainApp.noGuestString += " class=\"control-label\" for=\"lName";
 		MainApp.noGuestString += "\"> Last name</label><div class=\"controls\"><input id=\"lName";
 		MainApp.noGuestString += "\" type=\"text\" name=\"lName\" class=\"input-auto required\"";
 		MainApp.noGuestString += "></div></div></div>";
-		
+
 		MainApp.noGuestString += "<div class=\"span2\"><div class=\"control-group\"><label";
 		MainApp.noGuestString += " class=\"control-label\" for=\"fName";
 		MainApp.noGuestString += "\"> First name</label><div class=\"controls\"><input id=\"fName";
@@ -176,13 +175,13 @@ var MainApp={
 		} else {
 			for(var i = 1; i <= MainApp.numGuests; i++) {
 				var guestInfo = [$('input[name="lName' + i + '"]').val(),
-					$('input[name="fName' + i + '"]').val(),$('#meal' + i).val(), 
+					$('input[name="fName' + i + '"]').val(),$('#meal' + i).val(),
 					$('input[name="restriction' + i + '"]').val()];
 				guestsInfo.push(guestInfo);
 			}
 			groupInfo.push(guestsInfo);
 		}
-		
+
 		$('body').addClass('loading');
 		$.post("/commitGuest", {guests:groupInfo})
 		.done(function(data) {
@@ -191,7 +190,7 @@ var MainApp={
 			$('#rsvpContent').addClass('middle');
 			$('#rsvpContent').append("<div class=\"hero-unit\"><h2> " + data + "</h2><p class=\"lead\"> Thank you for responding! Feel free to continue browsing the site!</div>");
 		})
-		.fail(function() { 
+		.fail(function() {
 			$('body').removeClass('loading');
 			$('#rsvpContent').empty();
 			$('#rsvpContent').append("<h2> Oops something went wrong! Please try again");

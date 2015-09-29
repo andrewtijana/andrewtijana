@@ -1,8 +1,11 @@
-#contact.modal.hide.fade(tabindex="-1",role="dialog",aria-labelledby="contactLabel",aria-hidden="true")
-	.modal-header
-		button.close(type="button",data-dismiss="modal",aria-hidden="true") &times;
-		h3#contactLabel Contact us!
-	.modal-body
-		p We have tried to make this site as complete as possible! However if we have missed anything, here is your opportunity to let us know.
-		| Click here to start a conversation with us:
-		a#contact(href="mailto:tijanajovic@gmail.com?Subject=Contact%20from%20AT%20Site") tijana.jovic@gmail.com
+#contact.modal.fade(tabindex="-1",role="dialog",aria-labelledby="contactLabel")
+  .modal-dialog(role="document")
+    .modal-content
+	    .modal-header
+		    button.close(type="button",data-dismiss="modal",aria-label="Close")
+          span(aria-hidden="true") &times;
+		      h3#.modal-title#contactLabel Contact us!
+	    .modal-body
+		    p We have tried to make this site as complete as possible! However if we have missed anything, here is your opportunity to let us know.
+		    | Click here to start a conversation with us:
+		    a#contact(href="mailto:tijanajovic@gmail.com?Subject=Contact%20from%20AT%20Site") tijana.jovic@gmail.com
