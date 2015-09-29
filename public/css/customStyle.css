@@ -111,7 +111,7 @@ a#contact {
 }
 
 /* Customize container */
-.resume.container {
+.resume > .container {
   max-width: 730px;
 }
 
